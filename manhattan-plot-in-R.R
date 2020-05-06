@@ -19,9 +19,10 @@ manhattan(gwasResults, annotatePval=0.01)
 # Highlight SNPs Let’s suppose the you have a group of SNP that you want to highlight on the plot. This can be done following almost the same procedure. We just need to add them a flag in the dataframe, and use the flag for the color
 # List of SNPs to highlight are in the snpsOfInterest object
 # We will use ggrepel for the annotation
+install.packages("ggrepel")
 library(ggrepel)
 
-# Prepare the dataset
+# Prepare the dataset-- CAUTION: ERROR EXISTS HERE, R DOESNT LIKE % SYMBOLS. NEED TO EDIT.
 don <- gwasResults %>% 
   
   # Compute chromosome size
@@ -43,7 +44,7 @@ don <- gwasResults %>%
   mutate( is_highlight=ifelse(SNP %in% snpsOfInterest, "yes", "no")) %>%
   mutate( is_annotate=ifelse(-log10(P)>4, "yes", "no")) 
 
-# Prepare X axis
+# Prepare X axis-- PROBABLY NEED TO EDIT OUT % SYMBOLS HERE
 axisdf <- don %>% group_by(CHR) %>% summarize(center=( max(BPcum) + min(BPcum) ) / 2 )
 
 # Make the plot
